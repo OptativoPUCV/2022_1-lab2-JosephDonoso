@@ -115,30 +115,30 @@ void * popBack(List * list) {
 }
 
 void * popCurrent(List * list) {
-    if( !list->current ) return NULL;
+    if( !list->current ) return NULL; //Si no existe nodo actual
     
     void * aux = list->current->data;
-    if(list->tail == list->head){
+    if(list->tail == list->head){ //Si solo existe un nodo
         free( list->current );
         list->current = NULL;
         list->head = NULL;
         list->tail = NULL;
     }
     else{
-        if( list->current == list->head ){
+        if( list->current == list->head ){ //Si el nodo actual es la cabeza
             list->current = list->head->next;
             list->head = list->current;
             free( list->head->prev );
             list->head->prev = NULL;
         }
         else{
-            if( list->current == list->tail){
+            if( list->current == list->tail){ //Si el nodo actual es la cola
                 list->current = list->tail->prev;
                 list->tail = list->current;
                 free( list->tail->next );
                 list->tail->next = NULL;
             }
-            else{
+            else{ //Si el nodo actual se encuentra en medio de la lista
                 list->current = list->current->next;
                 list->current->prev = list->current->prev->prev;
                 free( list->current->prev->next );
