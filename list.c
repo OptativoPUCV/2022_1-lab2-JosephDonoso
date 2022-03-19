@@ -29,26 +29,49 @@ Node * createNode(void * data) {
 }
 
 List * createList() {
-     return NULL;
+  List* lista = (List*) malloc(sizeof(List));
+  assert(lista != NULL);
+  lista->head = NULL;
+  lista->tail = NULL;
+  lista->current = NULL;
+
+  return lista;
 }
 
 void * firstList(List * list) {
-    return NULL;
+  if( !list->head ) return NULL; //Si la cabeza no existe retorno nulo
+  list->current = list->head;
+  return list->current->data;
 }
 
 void * nextList(List * list) {
-    return NULL;
+  if( !list->current ) return NULL; //Si el nodo actual no existe retorno nulo
+  if( !list->current->next ) return NULL; //Si el siguiente al actual no existe retorno nulo
+  list->current = list->current->next;
+  return list->current->data;
 }
 
 void * lastList(List * list) {
-    return NULL;
+  if( !list->tail ) return NULL; // Si la cola no existe retorno nulo
+  list->current = list->tail;
+  return list->current->data;
 }
 
-void * prevList(List * list) {
-    return NULL;
+void * prevList(List * list) { 
+  if( !list->current ) return NULL; //Si el nodo actual no existe retorno nulo
+  if( !list->current->prev ) return NULL; //Si el anterior al actual no existe retorno nulo
+  list->current = list->current->prev;
+  return list->current->data;
 }
 
 void pushFront(List * list, void * data) {
+  Node * nodoNuevo = createNode(data);
+
+  nodoNuevo->next = list->head;
+  if( list->head ){ //Si el head existe, conecto el prev del head con el nuevo nodo
+    list->head->prev = nodoNuevo;
+  }
+  list->head = nodoNuevo;
 }
 
 void pushBack(List * list, void * data) {
