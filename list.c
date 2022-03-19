@@ -71,6 +71,9 @@ void pushFront(List * list, void * data) {
   if( list->head ){ //Si el head existe, conecto el prev del head con el nuevo nodo
     list->head->prev = nodoNuevo;
   }
+  else{ //Si el head no existe, la cola de la lista será el nuevo nodo
+    list->tail = nodoNuevo;
+  }
   list->head = nodoNuevo;
 }
 
