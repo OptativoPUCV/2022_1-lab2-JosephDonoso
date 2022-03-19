@@ -89,15 +89,15 @@ void pushCurrent(List * list, void * data) {
       pushFront(list,data);
   }
   else{
-      nodoNuevo->next = list->current->next;
-      nodoNuevo->prev = list->current;
-      list->current->next = nodoNuevo;
-      list->current = nodoNuevo;
+      nodoNuevo->next = list->current->next; //Que el "next" del nuevo nodo apunte al siguiente del actual
+      nodoNuevo->prev = list->current;       //Que el "prev" del nuevo nodo apunte al actual
+      list->current->next = nodoNuevo;       //Que el "next" del nodo actual apunte al nuevo
+      list->current = nodoNuevo;             //Que el nodo actual sea el nodo nuevo
       if( !list->current->next ){ //Si el nodo actual era la cola, entonces asignarle nuevamente la cola
-        list->tail = list->current;
+        list->tail = nodoNuevo;              //Que la cola sea el nuevo
       }
       else{//Si existía uno nodo depués del actual, el prev de ese nodo que apunte al nuevo
-        nodoNuevo->next->prev = nodoNuevo; 
+        nodoNuevo->next->prev = nodoNuevo;   //Que el "prev" del siguiente nodo del actual apunte al nuevo
       }
 
   }
