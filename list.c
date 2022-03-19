@@ -83,6 +83,25 @@ void pushBack(List * list, void * data) {
 }
 
 void pushCurrent(List * list, void * data) {
+  Node * nodoNuevo = createNode(data);
+  
+  if( !list->current ){ //Si el nodo actual no existe, agregar el elemento al frente
+      pushFront(list,data);
+  }
+  else{
+      nodoNuevo->next = list->current->next;
+      nodoNuevo->prev = list->current;
+      list->current->next = nodoNuevo;
+      list->current = nodoNuevo;
+      if( !list->current->next ){ //Si el nodo actual era la cola, entonces asignarle nuevamente la cola
+        list->tail = list->current;
+      }
+      else{//Si existía uno nodo depués del actual, el prev de ese nodo que apunte al nuevo
+        nodoNuevo->next->prev = nodoNuevo; 
+      }
+
+  }
+  
 }
 
 void * popFront(List * list) {
